@@ -11,7 +11,7 @@ A powerful, colorful, and interactive CLI tool for enhancing your CV, matching i
 - [Installation](#installation)
 - [Usage](#usage)
 - [Scripts Explained](#scripts-explained)
-    - [CV Enhancer](#cv-enhancer)
+    - [CV Enhancer](#cv-enhancer.py)
     - [Job Matcher](#job-matcher)
     - [Gemini Chat](#gemini-chat)
     - [Main Menu](#main-menu)
@@ -153,22 +153,176 @@ Each module provides an interactive, graphical CLI experience.
 ## Diagrams
 
 ### CV Enhancer Flow
-<!-- IMAGE PLACEHOLDER: CV Enhancer Diagram -->
+
 
 ---
 
 ### Job Matcher Flow
 <!-- IMAGE PLACEHOLDER: Job Matcher Diagram -->
+<img width="2048" height="2048" alt="Gemini_Generated_Image_5bldi75bldi75bld" src="https://github.com/user-attachments/assets/fb4353a0-186c-4be6-a946-e468d573bbe6" />
+## Proposed Diagram for CV Enhancer Module:
+
+### Title:
+`CV Enhancer Module Flow`
+
+### Main Components (in boxes or rectangles):
+
+* `User`
+* `main.py` (Entry Point)
+* `CV Enhancer (cv_enhancer.py)`
+    * (Smaller text below: `Main Logic, User Interaction, Display Results`)
+* `CV File (PDF/TXT)`
+* `utils/pdf_reader.py`
+    * (Smaller text below: `Extract Text from PDF`)
+* `utils/gemini_api.py`
+    * (Smaller text below: `AI Processing, Prompt Building`)
+* `Enhanced CV & Analysis` (Output from Gemini)
+* `Improved CV` (Displayed Output)
+* `Suggestions` (Displayed Output)
+* `Graphical Elements (Charts, Bars)` (Displayed Output)
+* `Edit/Save` (User Option)
+* `utils/cv_pdf_formatter.py`
+    * (Smaller text below: `Convert to PDF`)
+
+### Arrows (Flow of Operations and Data):
+
+* `User` → (Launches) → `main.py`
+* `main.py` → (Invokes) → `CV Enhancer (cv_enhancer.py)`
+* `CV Enhancer (cv_enhancer.py)` → (Requests) → `CV File (PDF/TXT)`
+* `CV File (PDF/TXT)` → (If PDF) → `utils/pdf_reader.py`
+* `utils/pdf_reader.py` → (Extracted Text) → `CV Enhancer (cv_enhancer.py)`
+* `CV Enhancer (cv_enhancer.py)` → (Sends Content) → `utils/gemini_api.py`
+* `utils/gemini_api.py` → (Returns) → `Enhanced CV & Analysis`
+* `Enhanced CV & Analysis` → (Processed and Displayed by) → `CV Enhancer (cv_enhancer.py)`
+* `CV Enhancer (cv_enhancer.py)` → (Displays) → `Improved CV`, `Suggestions`, `Graphical Elements (Charts, Bars)`
+* `Improved CV` → (User can) → `Edit/Save`
+* `Edit/Save` → (If PDF save chosen) → `utils/cv_pdf_formatter.py`
+
+---
+### job Macher flow
+<img width="2048" height="2048" alt="Gemini_Generated_Image_6uj94o6uj94o6uj9" src="https://github.com/user-attachments/assets/9fad6b9f-f779-419b-80ad-0909fa31275b" />
+## Job Matcher Module: Detailed Explanation
+
+### What is the Job Matcher?
+The Job Matcher is an interactive command-line interface (CLI) tool designed to compare your CV with a specific job description. Its primary function is to assess your compatibility with the job, highlight your strengths and weaknesses, and present the results graphically with colors.
+
+### How the Job Matcher Works (Step by Step):
+
+1.  **Starting from the Main Menu**
+    * The user selects "Job Matcher" from the main menu (`main.py`).
+    * The script `modules/job_matcher.py` is invoked.
+
+2.  **Data Input**
+    * The program prompts the user to enter the path to their CV file (supports PDF or TXT).
+    * It then asks the user to paste or input the text of the target job description.
+
+3.  **Reading and Preparing Data**
+    * If the file is PDF: Text is extracted using helper functions (`utils/pdf_reader.py`).
+    * If the file is TXT: It's read directly as plain text.
+    * The data is validated and prepared for submission.
+
+4.  **Sending Data to Gemini AI**
+    * A smart prompt containing the CV text and job description is constructed.
+    * This prompt is sent to the Gemini API via a function in `utils/gemini_api.py`.
+    * Gemini AI analyzes the CV against the job description and returns:
+        * Match Score
+        * Strengths
+        * Weaknesses
+        * Suggestions for improvement
+
+5.  **Graphical Display of Results**
+    * Results are displayed in the terminal in an engaging manner:
+        * Colored Match Score Bar
+        * Pie Chart for skill coverage
+        * Skill Matrix Table with colored strengths/weaknesses
+        * Textual list of strengths, weaknesses, and suggestions for improvement
+        * Celebratory ASCII art if the match is high
+
+6.  **Support for Multi-CV/Job Comparison**
+    * Users can input multiple CVs or multiple job descriptions for comparison in one go.
+    * Results are displayed in a colored comparison table with a horizontal bar chart showing the best matches.
+
+7.  **User Interaction**
+    * Users can retry the process, compare other files, or return to the main menu at any time.
+
+### Core Components of the Job Matcher:
+
+* `job_matcher.py`: Contains all logic for user interaction, file reading, prompt building, result display, and graphical elements.
+* `utils/gemini_api.py`: Responsible for sending and receiving data from Gemini AI.
+* `utils/pdf_reader.py`: For reading CV text from PDF files.
+* `colorama`: For displaying colors in the terminal.
+* `Helper Functions for Graphics`: E.g., functions for drawing bars, pie charts, colored tables, etc.
+
+### How It Connects to Other Project Parts:
+
+* It is invoked from the main menu (`main.py`).
+* It uses functions from `utils/gemini_api.py` and `utils/pdf_reader.py` (and other helper utilities).
+* It shares the same graphical result display style with other scripts (e.g., CV Enhancer) for consistency.
+
+### Benefits for Users:
+
+* Instantly and intelligently determine the suitability of your CV for any job.
+* Receive detailed and actionable analysis to improve your career opportunities.
+* Compare multiple CVs or jobs simultaneously.
+* Enjoy a fun and easy-to-use experience through the terminal with graphics and colors.
+
 
 ---
 
+
 ### Gemini Chat Flow
-<!-- IMAGE PLACEHOLDER: Gemini Chat Diagram -->
+<img width="2048" height="2048" alt="12131" src="https://github.com/user-attachments/assets/94dcd641-357c-4fa2-a2d9-f4c622f03993" />
+
+## Gemini Chat Module: Detailed Explanation
+
+### What is Gemini Chat?
+Gemini Chat is an interactive command-line interface (CLI) chatbot tool that allows you to communicate directly with Google's Gemini AI model. You can type any question, inquiry, or text request, and Gemini will respond instantly within your terminal.
+
+### How Gemini Chat Works (Step by Step):
+
+1.  **Launch from Main Menu**
+    * The user selects "Gemini Chat" from the main menu (`main.py`).
+    * The script `modules/gemini_chat.py` is executed.
+
+2.  **Welcome Interface**
+    * A colored ASCII logo specific to Gemini is displayed, along with an engaging welcome message.
+
+3.  **Start Conversation**
+    * The program prompts you to type your message or question (any text: job inquiry, advice, information, etc.).
+    * You can continue sending messages one after another, and Gemini will respond each time.
+
+4.  **Sending and Receiving Messages**
+    * Every message you type is sent to the Gemini API via `utils/gemini_api.py`.
+    * The response from Gemini is received and displayed directly in the terminal.
+
+5.  **End Conversation**
+    * You can type "exit" or "quit" at any time to leave the chat mode and return to the main menu.
+
+### Core Components of Gemini Chat:
+
+* `gemini_chat.py`: Contains the logic for user interaction (message input, response display, ending the conversation).
+* `utils/gemini_api.py`: Responsible for sending messages to the Gemini API and receiving responses.
+* `colorama`: For displaying colors in messages and the welcome interface.
+* `main.py`: Invokes this script when "Gemini Chat" is selected from the menu.
+
+### How It Connects to Other Project Parts:
+
+* It is called from the main menu (`main.py`).
+* It uses the same Gemini AI communication functions as other scripts (`job_matcher`, `cv_enhancer`).
+* Its graphical interface is unified with the rest of the project's parts (colored logo, welcome message).
+
+### Benefits for Users:
+
+* You can consult Gemini AI on any topic (professional, technical, advice, etc.) directly and quickly.
+* No need for any external browser or application; everything happens through the terminal.
+* An enjoyable and easy-to-use experience with a colorful and attractive interface.
+
 
 ---
 
 ### Full Project Architecture
-<!-- IMAGE PLACEHOLDER: Full Project Diagram -->
+<img width="2048" height="2048" alt="123" src="https://github.com/user-attachments/assets/f942e151-76a4-493c-9b73-2f2dbbb12044" />
+
 
 ---
 
