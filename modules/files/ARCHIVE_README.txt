@@ -1,0 +1,1 @@
+This folder contained legacy and experimental scripts. All files here are deprecated and have been archived as part of the July 2025 refactor. If you need to restore any file, check your git history or contact the project maintainer.
