@@ -1,0 +1,32 @@
+a
+    \&qhÒ	  ã                   @   s(   d dl Z d dlmZ d dlZdd„ ZdS )é    N)Úsync_playwrightc              	   C   sÈ  d}t ƒ ¦}tj |¡r:tdƒ |jjddj |d}ntdƒ |jjdd}|  ¡ }| ¡ } tj |¡sòtd ƒ |  	d¡ td	ƒ |  
+d
+|d
+ ¡ |  
+d|d
+ ¡ |  
+d¡ z| jddd tdƒ W n t
+yä   tdƒ Y n0 |j|d td| › ƒ |  	| ¡ zltdƒ | jddd |  
+d¡ tdƒ t d¡ z|  
+d|¡ tdƒ W n t
+yr   tdƒ Y n0 W n t
+y’   tdƒ Y n0 | ¡  tdƒ W d  ƒ n1 sº0    Y  dS ) a  
+    Automate the process of applying to a job on LinkedIn.
+
+    Args:
+        job_url (str): The URL of the job posting on LinkedIn.
+        credentials (dict): Dictionary with 'email' and 'password'.
+        cover_letter (str): The cover letter text to use in the application.
+    z
+state.jsonu+   ðŸ” Using saved session (no login needed).F)Zheadless)Ú
+storage_stateu+   ðŸ”‘ No session found. Logging in manually.u)   ðŸŒ Navigating to LinkedIn login page...zhttps://www.linkedin.com/loginu   ðŸ”‘ Logging in...zinput#usernameÚemailzinput#passwordÚpasswordzbutton[type='submit']zinput[placeholder='Search']i'  )Ú timeoutu   âœ… Login successful!u8   âŒ Login may have failed. Check credentials or CAPTCHA.)Úpathu   ðŸ”Ž Opening job URL: u'   ðŸªª Waiting for 'Easy Apply' button...zbutton.jobs-apply-buttonu    âœ… 'Easy Apply' button clicked.é   ztextarea[name="coverLetter"]u   âœ… Cover letter filled.u3   âš ï¸ No cover letter field found or not required.uA   âš ï¸ Could not find 'Easy Apply' button or job already applied.u   ðŸ”’ Browser closed.N)r   Úosr    ÚexistsÚprintZchromiumZlaunchZ
+new_contextZnew_pageZgotoÚfillZclickZwait_for_selectorÚ	Exceptionr   ÚtimeÚsleepÚclose)Ú job_urlÚ
+credentialsÚcover_letterZ
+state_pathÚpÚ contextZ browserÚpage© r   ú.D:\AI\ai_assistant\utils\browser_controller.pyÚapply_to_job_linkedin    sN    
+
+
+
+
+
+
+r   )r	   Zplaywright.sync_apir   r   r   r   r   r   r   Ú<module>   s   
