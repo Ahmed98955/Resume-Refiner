@@ -1,0 +1,6 @@
+python-dotenv
+requests
+PyPDF2
+reportlab
+playwright
+# logging (built-in)
